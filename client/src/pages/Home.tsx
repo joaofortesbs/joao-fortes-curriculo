@@ -27,9 +27,9 @@ const capabilities = [
 ];
 
 const projects = [
-  { id: "01", type: "Produto principal", title: "Ponto School", subtitle: "EdTech de IA para a rotina docente", description: "Produto criado para automatizar a criação, organização e comunicação de recursos educacionais. Uma experiência real de descoberta, construção e implementação em escolas.", result: "15+ escolas · 500+ professores", tone: "card-dark", cover: "/manus-storage/ponto-school-cover_0db43b03.png", mark: "logo", socials: true },
-  { id: "02", type: "Experiência B2B", title: "Sites & Apps", subtitle: "Soluções digitais para negócios", description: "Criação de sites e aplicativos para imobiliárias, construtoras, clínicas, escolas e empresas que precisavam transformar presença digital em operação.", result: "Discovery · Produto · Entrega", tone: "card-sand", cover: "/manus-storage/sites-apps-solid_79fa2d0d.svg", mark: "↗" },
-  { id: "03", type: "Go-to-market", title: "Produtos digitais", subtitle: "Oferta, aquisição e monetização", description: "Infoprodutos e cursos na área de marketing digital, conectando copy, tráfego e vendas consultivas a uma operação comercial própria.", result: "R$ 300 mil+ em vendas", tone: "card-muted", cover: "/manus-storage/digital-products-solid_8dfe1e10.svg", mark: "R$" },
+  { id: "01", type: "Produto principal", title: "Ponto School", subtitle: "EdTech de IA para a rotina docente", description: "Produto criado para automatizar a criação, organização e comunicação de recursos educacionais. Uma experiência real de descoberta, construção e implementação em escolas.", result: "15+ escolas · 500+ professores", tone: "card-dark", cover: "/assets/ponto-school-cover.png", mark: "logo", socials: true },
+  { id: "02", type: "Experiência B2B", title: "Sites & Apps", subtitle: "Soluções digitais para negócios", description: "Criação de sites e aplicativos para imobiliárias, construtoras, clínicas, escolas e empresas que precisavam transformar presença digital em operação.", result: "Discovery · Produto · Entrega", tone: "card-sand", cover: "/assets/sites-apps-solid.svg", mark: "↗" },
+  { id: "03", type: "Go-to-market", title: "Produtos digitais", subtitle: "Oferta, aquisição e monetização", description: "Infoprodutos e cursos na área de marketing digital, conectando copy, tráfego e vendas consultivas a uma operação comercial própria.", result: "R$ 300 mil+ em vendas", tone: "card-muted", cover: "/assets/digital-products-solid.svg", mark: "R$" },
 ];
 
 const faqs = [
@@ -44,10 +44,10 @@ const faqs = [
 ];
 
 const certificates = [
-  { title: "IA na prática: Como dados bem estruturados fazem a diferença", issuer: "Fundação Bradesco · Escola Virtual", preview: "/manus-storage/certificado-1_8f800846.png", pdf: "/manus-storage/certificado-1_b73cb0e0.pdf", filename: "joao-fortes-ia-na-pratica.pdf" },
-  { title: "Ética na era da IA", issuer: "Fundação Bradesco · Escola Virtual", preview: "/manus-storage/certificado-2_af60320e.png", pdf: "/manus-storage/certificado-2_15e3f508.pdf", filename: "joao-fortes-etica-na-era-da-ia.pdf" },
-  { title: "Inteligência Artificial para pequenas e médias empresas", issuer: "Fundação Bradesco · Escola Virtual", preview: "/manus-storage/certificado-3_ff751556.png", pdf: "/manus-storage/certificado-3_69b96c53.pdf", filename: "joao-fortes-ia-para-pmes.pdf" },
-  { title: "Fluência em Inteligência Artificial", issuer: "Fundação Bradesco · Escola Virtual", preview: "/manus-storage/certificado-4_21b93636.png", pdf: "/manus-storage/certificado-4_ac367505.pdf", filename: "joao-fortes-fluencia-em-ia.pdf" },
+  { title: "IA na prática: Como dados bem estruturados fazem a diferença", issuer: "Fundação Bradesco · Escola Virtual", preview: "/assets/certificado-1.png", pdf: "/assets/certificado-1.pdf", filename: "joao-fortes-ia-na-pratica.pdf" },
+  { title: "Ética na era da IA", issuer: "Fundação Bradesco · Escola Virtual", preview: "/assets/certificado-2.png", pdf: "/assets/certificado-2.pdf", filename: "joao-fortes-etica-na-era-da-ia.pdf" },
+  { title: "Inteligência Artificial para pequenas e médias empresas", issuer: "Fundação Bradesco · Escola Virtual", preview: "/assets/certificado-3.png", pdf: "/assets/certificado-3.pdf", filename: "joao-fortes-ia-para-pmes.pdf" },
+  { title: "Fluência em Inteligência Artificial", issuer: "Fundação Bradesco · Escola Virtual", preview: "/assets/certificado-4.png", pdf: "/assets/certificado-4.pdf", filename: "joao-fortes-fluencia-em-ia.pdf" },
 ];
 
 const processSteps = [
@@ -57,8 +57,8 @@ const processSteps = [
   ["04", "Medir e melhorar", "Acompanho adoção, feedback e fricções para transformar o primeiro lançamento em produto."],
 ];
 
-const profileImage = "/manus-storage/joao-fortes-profile-avatar_f082e0b3.png";
-const pontoSchoolLogo = "/manus-storage/ponto-school-logo_4b0883df.png";
+const profileImage = "/assets/profile-avatar.png";
+const pontoSchoolLogo = "/assets/ponto-school-logo.png";
 
 export default function Home() {
   const [openFaq, setOpenFaq] = useState(0);
@@ -146,7 +146,7 @@ export default function Home() {
             <div className="faq-list">{faqs.map(([question, answer], index) => { const isOpen = openFaq === index; return <div className={`faq-item frame-card ${isOpen ? "is-open" : ""}`} key={question}><button className="faq-trigger" type="button" aria-expanded={isOpen} aria-controls={`faq-answer-${index}`} onClick={() => setOpenFaq(isOpen ? -1 : index)}><span><small>{String(index + 1).padStart(2, "0")}</small>{question}</span><Plus size={19} aria-hidden="true" /></button><div id={`faq-answer-${index}`} className="faq-answer" hidden={!isOpen}><p>{answer}</p></div></div>; })}</div>
           </section>
 
-          <section id="contato" className="frame-section section-inset-sand"><div className="contact-card frame-card card-dark"><div><span className="section-kicker eyebrow-accent">06 / Próximo passo</span><h2 className="contact-title">Tem um problema<br /><em>interessante?</em></h2><p className="contact-copy">Estou buscando uma empresa onde possa combinar IA aplicada, automação e visão de produto para construir algo que realmente mova a operação.</p></div><div className="contact-actions"><a href="mailto:joaomarcelofortesempresa@gmail.com?subject=Oportunidade profissional" className="button-primary button-light">Falar sobre uma oportunidade <ArrowUpRight size={17} /></a><a href="/manus-storage/joao-fortes-curriculo-visual_ab733705.pdf" download="curriculo-joao-fortes.pdf" className="contact-link"><Download size={17} /> Baixar currículo em PDF</a><span className="contact-email">joaomarcelofortesempresa@gmail.com</span></div></div></section>
+          <section id="contato" className="frame-section section-inset-sand"><div className="contact-card frame-card card-dark"><div><span className="section-kicker eyebrow-accent">06 / Próximo passo</span><h2 className="contact-title">Tem um problema<br /><em>interessante?</em></h2><p className="contact-copy">Estou buscando uma empresa onde possa combinar IA aplicada, automação e visão de produto para construir algo que realmente mova a operação.</p></div><div className="contact-actions"><a href="mailto:joaomarcelofortesempresa@gmail.com?subject=Oportunidade profissional" className="button-primary button-light">Falar sobre uma oportunidade <ArrowUpRight size={17} /></a><a href="/assets/curriculo-joao-fortes.pdf" download="curriculo-joao-fortes.pdf" className="contact-link"><Download size={17} /> Baixar currículo em PDF</a><span className="contact-email">joaomarcelofortesempresa@gmail.com</span></div></div></section>
         </main>
 
         <footer className="footer"><div><span className="font-display text-xl font-bold">João Fortes</span><span className="footer-tagline">IA aplicada · automação · produto</span></div><div className="footer-links"><a href="https://www.linkedin.com/in/jo%C3%A3o-fortes-ba937537b/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={17} /></a><a href="https://www.instagram.com/joaofortesbs/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={17} /></a><a href="mailto:joaomarcelofortesempresa@gmail.com" aria-label="E-mail"><Mail size={17} /></a><a href="tel:+5562981982234" aria-label="Telefone"><Phone size={17} /></a><button type="button" className="icon-button footer-certificate-button" aria-label="Abrir certificados profissionais" onClick={() => setCertificatesOpen(true)}><Award size={17} /></button><span className="footer-year">© 2026</span></div></footer>
