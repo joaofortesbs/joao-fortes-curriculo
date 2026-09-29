@@ -1,32 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
-  ArrowDown,
   ArrowRight,
   ArrowUpRight,
+  Award,
   Boxes,
   Check,
   ChevronRight,
-  CircleDot,
   Cpu,
   Download,
   Instagram,
   Linkedin,
   Mail,
   MapPin,
-  Menu,
-  MessageCircle,
   Network,
-  Sparkles,
+  Phone,
+  Plus,
   Workflow,
   X,
 } from "lucide-react";
-
-const navItems = [
-  { label: "Projetos", href: "#projetos" },
-  { label: "Método", href: "#metodo" },
-  { label: "Sobre", href: "#sobre" },
-  { label: "Contato", href: "#contato" },
-];
 
 const capabilities = [
   { number: "01", icon: Cpu, title: "IA aplicada", description: "Agentes, RAG, OpenAI e desenvolvimento assistido por IA para transformar tarefas complexas em fluxos operáveis.", tags: ["Agentes", "RAG", "OpenAI"] },
@@ -36,9 +27,27 @@ const capabilities = [
 ];
 
 const projects = [
-  { id: "01", type: "Produto principal", title: "Ponto School", subtitle: "EdTech de IA para a rotina docente", description: "Produto criado para automatizar a criação, organização e comunicação de recursos educacionais. Uma experiência real de descoberta, construção e implementação em escolas.", result: "15+ escolas · 500+ professores", accent: "project-featured" },
-  { id: "02", type: "Experiência B2B", title: "Sites & Apps", subtitle: "Soluções digitais para negócios", description: "Criação de sites e aplicativos para imobiliárias, construtoras, clínicas, escolas e empresas que precisavam transformar presença digital em operação.", result: "Discovery · Produto · Entrega", accent: "project-sand" },
-  { id: "03", type: "Go-to-market", title: "Produtos digitais", subtitle: "Oferta, aquisição e monetização", description: "Infoprodutos e cursos na área de marketing digital, conectando copy, tráfego e vendas consultivas a uma operação comercial própria.", result: "R$ 300 mil+ em vendas", accent: "project-slate" },
+  { id: "01", type: "Produto principal", title: "Ponto School", subtitle: "EdTech de IA para a rotina docente", description: "Produto criado para automatizar a criação, organização e comunicação de recursos educacionais. Uma experiência real de descoberta, construção e implementação em escolas.", result: "15+ escolas · 500+ professores", tone: "card-dark", cover: "/manus-storage/ponto-school-cover_0db43b03.png", mark: "logo", socials: true },
+  { id: "02", type: "Experiência B2B", title: "Sites & Apps", subtitle: "Soluções digitais para negócios", description: "Criação de sites e aplicativos para imobiliárias, construtoras, clínicas, escolas e empresas que precisavam transformar presença digital em operação.", result: "Discovery · Produto · Entrega", tone: "card-sand", cover: "/manus-storage/sites-apps-solid_79fa2d0d.svg", mark: "↗" },
+  { id: "03", type: "Go-to-market", title: "Produtos digitais", subtitle: "Oferta, aquisição e monetização", description: "Infoprodutos e cursos na área de marketing digital, conectando copy, tráfego e vendas consultivas a uma operação comercial própria.", result: "R$ 300 mil+ em vendas", tone: "card-muted", cover: "/manus-storage/digital-products-solid_8dfe1e10.svg", mark: "R$" },
+];
+
+const faqs = [
+  ["Que tipo de problema João resolve?", "Gargalos em que negócio, operação e tecnologia estão desconectados: processos manuais, produtos ainda mal definidos, automações que não chegam ao uso real e experiências digitais que precisam gerar movimento."],
+  ["Ele atua mais como profissional de produto, tecnologia ou negócio?", "A força está justamente na interseção. João estrutura o problema e a hipótese como produto, usa IA, código, APIs e automações para construir e mantém a decisão conectada ao contexto comercial e operacional."],
+  ["A experiência com IA é prática ou apenas estratégica?", "É prática. A trajetória inclui agentes, RAG, OpenAI, workflows, integrações e desenvolvimento assistido por IA. A tecnologia é usada para colocar soluções em movimento, não como um fim isolado."],
+  ["Ele consegue executar depois da estratégia?", "Sim. O método parte de uma pergunta clara, passa por PRD e critérios de sucesso e chega à construção, implementação, feedback e melhoria. A proposta é reduzir a distância entre decidir e entregar."],
+  ["Que evidências comprovam essa experiência?", "A Ponto School alcançou 15+ escolas e 500+ professores; também há construção de sites e aplicativos para diferentes negócios e mais de R$ 300 mil em vendas de produtos digitais, conforme os dados públicos apresentados no portfólio."],
+  ["Em que ambiente João tende a gerar mais valor?", "Em equipes e empresas que precisam transformar um problema difuso em uma solução utilizável — especialmente quando é necessário conectar descoberta, produto, automação, IA e operação sem criar silos."],
+  ["Como ele trabalha com uma equipe existente?", "Com clareza de papéis e comunicação direta. João traduz decisões técnicas, estrutura requisitos, explicita hipóteses e trabalha com as pessoas que conhecem o usuário e a operação para acelerar sem perder contexto."],
+  ["Quais formatos de colaboração estão em aberto?", "O portfólio indica disponibilidade para formatos remoto, PJ e oportunidades globais. O escopo ideal pode ser conversado conforme o desafio, a responsabilidade esperada e o nível de proximidade com o produto."],
+];
+
+const certificates = [
+  { title: "IA na prática: Como dados bem estruturados fazem a diferença", issuer: "Fundação Bradesco · Escola Virtual", preview: "/manus-storage/certificado-1_8f800846.png", pdf: "/manus-storage/certificado-1_b73cb0e0.pdf", filename: "joao-fortes-ia-na-pratica.pdf" },
+  { title: "Ética na era da IA", issuer: "Fundação Bradesco · Escola Virtual", preview: "/manus-storage/certificado-2_af60320e.png", pdf: "/manus-storage/certificado-2_15e3f508.pdf", filename: "joao-fortes-etica-na-era-da-ia.pdf" },
+  { title: "Inteligência Artificial para pequenas e médias empresas", issuer: "Fundação Bradesco · Escola Virtual", preview: "/manus-storage/certificado-3_ff751556.png", pdf: "/manus-storage/certificado-3_69b96c53.pdf", filename: "joao-fortes-ia-para-pmes.pdf" },
+  { title: "Fluência em Inteligência Artificial", issuer: "Fundação Bradesco · Escola Virtual", preview: "/manus-storage/certificado-4_21b93636.png", pdf: "/manus-storage/certificado-4_ac367505.pdf", filename: "joao-fortes-fluencia-em-ia.pdf" },
 ];
 
 const processSteps = [
@@ -48,96 +57,101 @@ const processSteps = [
   ["04", "Medir e melhorar", "Acompanho adoção, feedback e fricções para transformar o primeiro lançamento em produto."],
 ];
 
-function jumpTo(href: string, close?: () => void) {
-  close?.();
-  document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
-}
+const profileImage = "/manus-storage/joao-fortes-profile-avatar_f082e0b3.png";
+const pontoSchoolLogo = "/manus-storage/ponto-school-logo_4b0883df.png";
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [openFaq, setOpenFaq] = useState(0);
+  const [certificatesOpen, setCertificatesOpen] = useState(false);
+
+  useEffect(() => {
+    if (!certificatesOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setCertificatesOpen(false);
+    };
+    document.addEventListener("keydown", closeOnEscape);
+    return () => document.removeEventListener("keydown", closeOnEscape);
+  }, [certificatesOpen]);
 
   return (
-    <div className="min-h-screen overflow-x-hidden bg-paper text-ink">
-      <header className="site-header">
-        <div className="container flex h-20 items-center justify-between">
-          <a href="#top" className="group flex items-center gap-3" aria-label="Voltar ao início">
-            <span className="brand-mark"><span>JF</span></span>
-            <span className="hidden text-sm font-semibold tracking-tight text-paper sm:block">João Fortes</span>
-          </a>
-          <nav className="hidden items-center gap-8 md:flex" aria-label="Navegação principal">
-            {navItems.map((item) => <a key={item.href} href={item.href} className="nav-link">{item.label}</a>)}
-          </nav>
-          <a href="#contato" className="hidden items-center gap-2 rounded-full border border-sand/40 px-4 py-2 text-xs font-bold uppercase tracking-widest text-paper transition hover:bg-sand hover:text-ink sm:flex">
-            Disponível <span className="status-dot" aria-hidden="true" />
-          </a>
-          <button className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-paper/20 text-paper md:hidden" onClick={() => setMenuOpen((value) => !value)} aria-label={menuOpen ? "Fechar menu" : "Abrir menu"} aria-expanded={menuOpen}>
-            {menuOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
-        </div>
-        {menuOpen && <div className="border-t border-paper/15 bg-ink px-4 pb-6 md:hidden"><nav className="container flex flex-col pt-4" aria-label="Navegação móvel">{navItems.map((item) => <a key={item.href} href={item.href} onClick={() => jumpTo(item.href, () => setMenuOpen(false))} className="border-b border-paper/10 py-4 text-lg text-paper">{item.label}</a>)}</nav></div>}
-      </header>
-
-      <main id="top">
-        <section className="hero-section">
-          <div className="container relative z-10 grid min-h-[calc(100vh-5rem)] items-center gap-16 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:py-28">
-            <div className="max-w-3xl">
-              <div className="eyebrow animate-rise"><span className="eyebrow-line" /> Disponível para oportunidades em IA aplicada</div>
-              <h1 className="display-title animate-rise delay-1">Transformo problemas complexos em <em>sistemas que funcionam.</em></h1>
-              <p className="hero-copy animate-rise delay-2">Sou João Fortes, profissional híbrido de IA aplicada, automação e produto. Construo soluções digitais que conectam tecnologia, operação e resultado.</p>
-              <div className="mt-9 flex flex-wrap items-center gap-4 animate-rise delay-3">
-                <a href="#projetos" className="button-primary">Ver projetos <ArrowRight size={17} /></a>
-                <a href="mailto:joaomarcelfortempresa@gmail.com?subject=Oportunidade profissional" className="button-ghost">Conversar sobre contratação <ArrowUpRight size={16} /></a>
+    <div className="site-canvas" id="top">
+      <div className="site-frame">
+        <main>
+          <section className="profile-panel" aria-label="Perfil de João Fortes">
+            <div className="profile-identity">
+              <div className="profile-avatar">
+                <img src={profileImage} alt="João Fortes" onError={(event) => { event.currentTarget.style.display = "none"; }} />
+                <span aria-hidden="true">JF</span>
               </div>
-              <div className="mt-14 flex flex-wrap gap-x-8 gap-y-3 text-sm text-paper/55 animate-rise delay-4"><span>Founder & product builder</span><span className="text-sand">/</span><span>Goiânia, GO · Brasil</span></div>
+              <div>
+                <p className="eyebrow">Perfil profissional</p>
+                <h2>João Fortes</h2>
+                <p className="profile-role">IA aplicada · automação · produto</p>
+              </div>
             </div>
-
-            <div className="hero-visual animate-fade delay-2" aria-label="Diagrama visual de um sistema de automação">
-              <div className="visual-orbit orbit-one" /><div className="visual-orbit orbit-two" />
-              <div className="system-grid" />
-              <div className="connector connector-a" /><div className="connector connector-b" /><div className="connector connector-c" /><div className="connector connector-d" />
-              <div className="system-node node-core"><Sparkles size={24} /><span>IA</span></div>
-              <div className="system-node node-data"><CircleDot size={18} /><span>dados</span></div>
-              <div className="system-node node-flow"><Workflow size={18} /><span>fluxo</span></div>
-              <div className="system-node node-impact"><Check size={18} /><span>impacto</span></div>
-              <div className="visual-caption"><span className="caption-label">MY WORKFLOW</span><span>Problema → Sistema → Resultado</span></div>
+            <div className="profile-details">
+              <span className="profile-location"><MapPin size={14} /> Goiânia, GO · Brasil</span>
+              <span className="profile-social-links" aria-label="Redes e contatos">
+                <a href="https://www.instagram.com/joaofortesbs/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={15} /></a>
+                <a href="https://www.linkedin.com/in/jo%C3%A3o-fortes-ba937537b/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={15} /></a>
+                <a href="mailto:joaomarcelofortesempresa@gmail.com" aria-label="E-mail"><Mail size={15} /></a>
+                <a href="tel:+5562981982234" aria-label="Telefone"><Phone size={15} /></a>
+                <button type="button" className="icon-button" aria-label="Abrir certificados profissionais" onClick={() => setCertificatesOpen(true)}><Award size={15} /></button>
+              </span>
+              <span className="availability"><i /> Disponível para oportunidades</span>
             </div>
-          </div>
-          <a href="#projetos" className="scroll-cue" aria-label="Ir para projetos"><span>Scroll para explorar</span><ArrowDown size={16} /></a>
-        </section>
+          </section>
 
-        <section className="proof-strip" aria-label="Provas profissionais">
-          <div className="container grid gap-8 py-12 sm:grid-cols-3 sm:gap-4 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+          <section className="hero-card frame-card card-dark" aria-labelledby="hero-title">
+            <div className="hero-card-copy">
+              <p className="eyebrow eyebrow-accent">Founder & product builder</p>
+              <h1 id="hero-title" className="display-title">Transformo problemas complexos em <em>sistemas que funcionam.</em></h1>
+              <p className="hero-copy">Sou João Fortes, profissional híbrido de IA aplicada, automação e produto. Construo soluções digitais que conectam tecnologia, operação e resultado.</p>
+              <div className="hero-actions">
+                <a href="#projetos" className="button-primary">Ver projetos <ArrowRight size={17} /></a>
+                <a href="https://wa.me/5562981982234?text=Ol%C3%A1%2C%20Jo%C3%A3o!%20Vi%20seu%20curr%C3%ADculo%20e%20gostaria%20de%20conversar%20sobre%20uma%20oportunidade%20profissional." target="_blank" rel="noreferrer" className="button-ghost">Conversar sobre contratação <ArrowUpRight size={16} /></a>
+              </div>
+            </div>
+            <div className="hero-index" aria-hidden="true"><span>01</span><span>Uma visão de ponta a ponta</span></div>
+          </section>
+
+          <section className="proof-grid frame-card" aria-label="Provas profissionais">
             <div className="proof-intro"><span className="section-kicker">A evidência</span><p>Construção real, não apenas discurso sobre tecnologia.</p></div>
             <div className="proof-item"><strong>15<span>+</span></strong><span>escolas alcançadas<br />pela Ponto School</span></div>
             <div className="proof-item"><strong>500<span>+</span></strong><span>professores<br />cadastrados</span></div>
             <div className="proof-item"><strong>R$300k<span>+</span></strong><span>em vendas<br />de produtos digitais</span></div>
-          </div>
-        </section>
+            <button type="button" className="proof-item proof-item-action" onClick={() => setCertificatesOpen(true)} aria-label="Abrir certificados profissionais"><strong><Award size={33} strokeWidth={1.3} /></strong><span>certificados<br />profissionais</span><ArrowUpRight size={16} /></button>
+          </section>
 
-        <section id="capacidades" className="section-light py-24 lg:py-32">
-          <div className="container">
-            <div className="section-heading mb-16"><div><span className="section-kicker">01 / Capacidades</span><h2 className="section-title">A ponte entre<br /><em>ideia e execução.</em></h2></div><p className="section-lead">Meu trabalho acontece na interseção entre negócio, produto e tecnologia — onde um gap vira uma solução utilizada.</p></div>
-            <div className="grid gap-px overflow-hidden rounded-2xl border border-ink/10 bg-ink/10 md:grid-cols-2">{capabilities.map((item) => { const Icon = item.icon; return <article key={item.number} className="capability-card group"><div className="flex items-start justify-between"><span className="card-number">{item.number}</span><Icon size={22} strokeWidth={1.5} className="text-slate transition duration-300 group-hover:text-sand" /></div><h3>{item.title}</h3><p>{item.description}</p><div className="mt-8 flex flex-wrap gap-2">{item.tags.map((tag) => <span key={tag} className="tag-light">{tag}</span>)}</div></article>; })}</div>
-          </div>
-        </section>
+          <section id="capacidades" className="frame-section">
+            <div className="section-heading"><div><span className="section-kicker">01 / Capacidades</span><h2 className="section-title">A ponte entre<br /><em>ideia e execução.</em></h2></div><p className="section-lead">Meu trabalho acontece na interseção entre negócio, produto e tecnologia — onde um gap vira uma solução utilizada.</p></div>
+            <div className="card-grid card-grid-capabilities">{capabilities.map((item) => { const Icon = item.icon; return <article key={item.number} className="frame-card capability-card"><div className="card-topline"><span className="card-number">{item.number}</span><Icon size={21} strokeWidth={1.5} /></div><h3>{item.title}</h3><p>{item.description}</p><div className="tag-row">{item.tags.map((tag) => <span key={tag} className="tag">{tag}</span>)}</div></article>; })}</div>
+          </section>
 
-        <section id="projetos" className="projects-section py-24 lg:py-32">
-          <div className="container">
-            <div className="section-heading mb-14"><div><span className="section-kicker section-kicker-dark">02 / Projetos selecionados</span><h2 className="section-title text-paper">Soluções com<br /><em>contexto e impacto.</em></h2></div><p className="section-lead text-paper/60">Três recortes de uma trajetória construída entre produto, operação, tecnologia e crescimento.</p></div>
-            <div className="grid gap-5 lg:grid-cols-3">{projects.map((project, index) => <article key={project.id} className={`project-card ${project.accent} ${index === 0 ? "lg:col-span-2" : ""}`}><div className="project-top"><span className="project-id">{project.id}</span><span className="project-type">{project.type}</span></div><div className="project-graphic" aria-hidden="true">{index === 0 ? <><div className="mini-window window-main"><div className="window-bar"><span /><span /><span /></div><div className="window-lines"><i /><i /><i /><i /></div><div className="window-chart"><b /><b /><b /><b /><b /></div></div><div className="mini-pill">Ponto<br />School</div><div className="mini-spark">✦</div></> : index === 1 ? <><div className="flow-chip chip-one">brief</div><ArrowRight className="flow-arrow" size={20} /><div className="flow-chip chip-two">build</div><ArrowRight className="flow-arrow second" size={20} /><div className="flow-chip chip-three">launch</div></> : <><div className="sales-circle"><span>R$</span><strong>300k</strong></div><div className="sales-line line-one" /><div className="sales-line line-two" /><div className="sales-dot dot-one" /><div className="sales-dot dot-two" /></>}</div><div className="project-content"><h3>{project.title}</h3><p className="project-subtitle">{project.subtitle}</p><p className="project-description">{project.description}</p><div className="project-result"><Check size={15} /> <span>{project.result}</span></div></div><div className="project-footer"><span>Ver case em breve</span><ArrowUpRight size={18} /></div></article>)}</div>
-          </div>
-        </section>
+          <section id="projetos" className="frame-section section-inset-dark">
+            <div className="section-heading"><div><span className="section-kicker section-kicker-dark">02 / Projetos selecionados</span><h2 className="section-title text-paper">Soluções com<br /><em>contexto e impacto.</em></h2></div><p className="section-lead text-paper-muted">Três recortes de uma trajetória construída entre produto, operação, tecnologia e crescimento.</p></div>
+            <div className="card-grid card-grid-projects">{projects.map((project) => <article key={project.id} className={`frame-card project-card ${project.tone}`}><div className="project-cover"><img src={project.cover} alt="" /><div className="project-mark" aria-hidden="true">{project.mark === "logo" ? <img src={pontoSchoolLogo} alt="" /> : <span>{project.mark}</span>}</div></div><div className="project-body"><div className="project-content"><div className="project-heading-row"><div><h3>{project.title}</h3><p className="project-subtitle">{project.subtitle}</p></div>{project.socials && <div className="project-social-links" aria-label="Redes sociais da Ponto School"><a href="https://www.linkedin.com/in/ponto-school-64131b3a3" target="_blank" rel="noreferrer" aria-label="LinkedIn da Ponto School"><Linkedin size={16} /></a><a href="https://www.instagram.com/pontoschool/" target="_blank" rel="noreferrer" aria-label="Instagram da Ponto School"><Instagram size={16} /></a></div>}</div><p className="project-description">{project.description}</p><div className="project-result"><Check size={15} /> <span>{project.result}</span></div></div><div className="project-footer"><span>Ver case em breve</span><ArrowUpRight size={18} /></div></div></article>)}</div>
+          </section>
 
-        <section id="metodo" className="section-light py-24 lg:py-32">
-          <div className="container grid gap-16 lg:grid-cols-[0.8fr_1.2fr] lg:gap-24"><div><span className="section-kicker">03 / Método de trabalho</span><h2 className="section-title mt-5">Pensar bem.<br /><em>Construir melhor.</em></h2><p className="section-lead mt-7">A velocidade vem depois da clareza. Cada solução começa com uma pergunta melhor formulada.</p><a href="#contato" className="inline-flex items-center gap-2 pt-8 text-sm font-bold text-ink underline decoration-sand decoration-2 underline-offset-8 transition hover:text-slate">Vamos conversar <ArrowRight size={16} /></a></div><div className="process-list">{processSteps.map(([number, title, description]) => <div key={number} className="process-step"><span className="process-number">{number}</span><div><h3>{title}</h3><p>{description}</p></div><ChevronRight className="process-arrow" size={20} /></div>)}</div></div>
-        </section>
+          <section id="metodo" className="frame-section">
+            <div className="method-grid"><div><span className="section-kicker">03 / Método de trabalho</span><h2 className="section-title mt-5">Pensar bem.<br /><em>Construir melhor.</em></h2><p className="section-lead mt-7">A velocidade vem depois da clareza. Cada solução começa com uma pergunta melhor formulada.</p><a href="#contato" className="text-link">Vamos conversar <ArrowRight size={16} /></a></div><div className="process-list">{processSteps.map(([number, title, description]) => <div key={number} className="process-step frame-card"><span className="process-number">{number}</span><div><h3>{title}</h3><p>{description}</p></div><ChevronRight className="process-arrow" size={20} /></div>)}</div></div>
+          </section>
 
-        <section id="sobre" className="about-section py-24 lg:py-32"><div className="container grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-start lg:gap-28"><div><span className="section-kicker section-kicker-dark">04 / Sobre</span><h2 className="section-title text-paper">Founder por<br /><em>necessidade.</em></h2><div className="about-note mt-12"><span className="status-dot" /><span>Agora aberto a novas oportunidades</span></div></div><div className="about-copy"><p className="about-lead">Minha atuação está na interseção entre negócio, produto e tecnologia.</p><p>Identifico gargalos, estruturo soluções, transformo necessidades em requisitos e coordeno a construção de produtos e automações com Inteligência Artificial.</p><p>Como fundador da Ponto School, aprendi a olhar para o ciclo completo: usuário, operação, produto, marketing, vendas, monetização e evolução. É essa visão de ponta a ponta que levo para cada novo desafio.</p><div className="about-meta"><div><span>Base</span><strong>Goiânia, GO</strong></div><div><span>Idiomas</span><strong>Português · Inglês intermediário</strong></div><div><span>Formato</span><strong>Remoto · PJ · Global</strong></div></div></div></div></section>
+          <section id="sobre" className="frame-section section-inset-slate">
+            <div className="about-grid"><div><span className="section-kicker section-kicker-dark">04 / Sobre</span><h2 className="section-title text-paper">Founder por<br /><em>necessidade.</em></h2><div className="about-note"><span className="status-dot" /> Agora aberto a novas oportunidades</div></div><div className="about-copy"><p className="about-lead">Minha atuação está na interseção entre negócio, produto e tecnologia.</p><p>Identifico gargalos, estruturo soluções, transformo necessidades em requisitos e coordeno a construção de produtos e automações com Inteligência Artificial.</p><p>Como fundador da Ponto School, aprendi a olhar para o ciclo completo: usuário, operação, produto, marketing, vendas, monetização e evolução. É essa visão de ponta a ponta que levo para cada novo desafio.</p><div className="about-meta"><div><span>Base</span><strong>Goiânia, GO</strong></div><div><span>Idiomas</span><strong>Português · Inglês intermediário</strong></div><div><span>Formato</span><strong>Remoto · PJ · Global</strong></div></div></div></div>
+          </section>
 
-        <section id="contato" className="contact-section py-24 lg:py-32"><div className="container"><div className="contact-card"><div><span className="section-kicker">05 / Próximo passo</span><h2 className="contact-title">Tem um problema<br /><em>interessante?</em></h2><p className="contact-copy">Estou buscando uma empresa onde possa combinar IA aplicada, automação e visão de produto para construir algo que realmente mova a operação.</p></div><div className="contact-actions"><a href="mailto:joaomarcelfortempresa@gmail.com?subject=Oportunidade profissional" className="button-primary button-light">Falar sobre uma oportunidade <ArrowUpRight size={17} /></a><a href="/manus-storage/curriculo-joao-fortes_2998e173.pdf" download="curriculo-joao-fortes.pdf" className="contact-link"><Download size={17} /> Baixar currículo em PDF</a><span className="contact-email">joaomarcelfortempresa@gmail.com</span></div></div></div></section>
-      </main>
+          <section id="perguntas" className="frame-section faq-section" aria-labelledby="faq-title">
+            <div className="section-heading"><div><span className="section-kicker">05 / Perguntas e respostas</span><h2 id="faq-title" className="section-title">Clareza antes<br /><em>da próxima conversa.</em></h2></div><p className="section-lead">As perguntas que normalmente aparecem antes de uma empresa decidir abrir espaço para uma conversa.</p></div>
+            <div className="faq-list">{faqs.map(([question, answer], index) => { const isOpen = openFaq === index; return <div className={`faq-item frame-card ${isOpen ? "is-open" : ""}`} key={question}><button className="faq-trigger" type="button" aria-expanded={isOpen} aria-controls={`faq-answer-${index}`} onClick={() => setOpenFaq(isOpen ? -1 : index)}><span><small>{String(index + 1).padStart(2, "0")}</small>{question}</span><Plus size={19} aria-hidden="true" /></button><div id={`faq-answer-${index}`} className="faq-answer" hidden={!isOpen}><p>{answer}</p></div></div>; })}</div>
+          </section>
 
-      <footer className="footer"><div className="container flex flex-col gap-8 py-8 sm:flex-row sm:items-center sm:justify-between"><div><span className="font-display text-xl font-bold text-paper">João Fortes</span><span className="ml-4 text-xs text-paper/40">IA aplicada · automação · produto</span></div><div className="flex items-center gap-5"><a href="https://www.linkedin.com/in/jo%C3%A3o-fortes-ba937537b/" target="_blank" rel="noreferrer" className="footer-link" aria-label="LinkedIn"><Linkedin size={17} /></a><a href="https://www.instagram.com/joaofortesbs/" target="_blank" rel="noreferrer" className="footer-link" aria-label="Instagram"><Instagram size={17} /></a><a href="mailto:joaomarcelfortempresa@gmail.com" className="footer-link" aria-label="E-mail"><Mail size={17} /></a><span className="footer-year">© 2026</span></div></div></footer>
+          <section id="contato" className="frame-section section-inset-sand"><div className="contact-card frame-card card-dark"><div><span className="section-kicker eyebrow-accent">06 / Próximo passo</span><h2 className="contact-title">Tem um problema<br /><em>interessante?</em></h2><p className="contact-copy">Estou buscando uma empresa onde possa combinar IA aplicada, automação e visão de produto para construir algo que realmente mova a operação.</p></div><div className="contact-actions"><a href="mailto:joaomarcelofortesempresa@gmail.com?subject=Oportunidade profissional" className="button-primary button-light">Falar sobre uma oportunidade <ArrowUpRight size={17} /></a><a href="/manus-storage/joao-fortes-curriculo-visual_ab733705.pdf" download="curriculo-joao-fortes.pdf" className="contact-link"><Download size={17} /> Baixar currículo em PDF</a><span className="contact-email">joaomarcelofortesempresa@gmail.com</span></div></div></section>
+        </main>
+
+        <footer className="footer"><div><span className="font-display text-xl font-bold">João Fortes</span><span className="footer-tagline">IA aplicada · automação · produto</span></div><div className="footer-links"><a href="https://www.linkedin.com/in/jo%C3%A3o-fortes-ba937537b/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><Linkedin size={17} /></a><a href="https://www.instagram.com/joaofortesbs/" target="_blank" rel="noreferrer" aria-label="Instagram"><Instagram size={17} /></a><a href="mailto:joaomarcelofortesempresa@gmail.com" aria-label="E-mail"><Mail size={17} /></a><a href="tel:+5562981982234" aria-label="Telefone"><Phone size={17} /></a><button type="button" className="icon-button footer-certificate-button" aria-label="Abrir certificados profissionais" onClick={() => setCertificatesOpen(true)}><Award size={17} /></button><span className="footer-year">© 2026</span></div></footer>
+        {certificatesOpen && <div className="certificate-modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setCertificatesOpen(false); }}><section className="certificate-modal" role="dialog" aria-modal="true" aria-labelledby="certificates-title"><div className="certificate-modal-header"><div><span className="section-kicker">Formação complementar</span><h2 id="certificates-title">Certificados profissionais</h2><p>IA, dados e negócios pela Fundação Bradesco · Escola Virtual.</p></div><button type="button" className="modal-close" aria-label="Fechar certificados" onClick={() => setCertificatesOpen(false)}><X size={20} /></button></div><div className="certificate-list">{certificates.map((certificate) => <a key={certificate.pdf} className="certificate-row" href={certificate.pdf} download={certificate.filename} aria-label={`Baixar certificado: ${certificate.title}`}><div className="certificate-copy"><h3>{certificate.title}</h3><p>{certificate.issuer}</p><span className="certificate-download"><Download size={14} /> Baixar PDF</span></div><div className="certificate-preview"><img src={certificate.preview} alt={`Preview do certificado ${certificate.title}`} /></div></a>)}</div><div className="certificate-modal-footer"><span><Award size={16} /> Quatro documentos disponíveis para download</span></div></section></div>}
+      </div>
     </div>
   );
 }
